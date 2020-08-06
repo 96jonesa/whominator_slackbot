@@ -8,4 +8,4 @@ Authorize the app for your workspace, then anyone on your team can direct messag
 
 # Note
 
-I am currently using a free service (ngrok) to host the URL that handles requests, and using some hacky but effective methods to prevent it from resetting the URL - within a day or so I will decide on a permanent solution, and there will be a very brief (minutes) outage of the service while I restart it.
+I am currently using a free service (ngrok) to host the URL that handles requests, and using some hacky but effective methods to prevent it from resetting the URL - within a day or so I will decide on a permanent solution, and there will be a very brief (a couple minutes) outage of the service while I restart it.
