@@ -11,13 +11,6 @@ import pickle
 
 # Initialize a Flask app to host the events adapter
 app = Flask(__name__)
-slack_events_adapter = SlackEventAdapter(os.environ['SLACK_SIGNING_SECRET'], "/slack/events", app)
-
-# Initialize a Web API client
-slack_web_client = WebClient(token=os.environ['SLACK_BOT_TOKEN'])
-
-client_id = os.environ['SLACK_CLIENT_ID']
-client_secret = os.environ['SLACK_CLIENT_SECRET']
 
 
 def save_obj(obj, name):
@@ -28,7 +21,17 @@ def save_obj(obj, name):
 def load_obj(name):
     with open('obj/' + name + '.pkl', 'rb') as f:
         return pickle.load(f)
+  
 
+secret_exports = load_obj['secret_exports']
+
+slack_events_adapter = SlackEventAdapter(secret_exports['SLACK_SIGNING_SECRET'], "/slack/events", app)
+
+# Initialize a Web API client
+slack_web_client = WebClient(token=secret_exports['SLACK_BOT_TOKEN'])
+
+client_id = secret_exports['SLACK_CLIENT_ID']
+client_secret = secret_exports['SLACK_CLIENT_SECRET']
 
 teams_to_tokens = load_obj('teams_to_tokens')
 
