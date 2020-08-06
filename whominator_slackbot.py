@@ -19,8 +19,6 @@ slack_web_client = WebClient(token=os.environ['SLACK_BOT_TOKEN'])
 client_id = os.environ['SLACK_CLIENT_ID']
 client_secret = os.environ['SLACK_CLIENT_SECRET']
 
-prev_user = None
-
 
 def save_obj(obj, name):
     with open('obj/'+ name + '.pkl', 'wb') as f:
@@ -56,7 +54,6 @@ def post_install():
 
     # Save the bot token to an environmental variable or to your data store
     # for later use
-    #os.environ["SLACK_BOT_TOKEN"] = response['access_token']
     global teams_to_tokens
     teams_to_tokens[response.get('team', {}).get('id')] = response['access_token']
 
@@ -89,10 +86,6 @@ def message(payload):
     # check against bot's user id to avoid endless replies
     if raw_text and bot_user_id != user_id:
         try:
-            #slack_web_client = WebClient(token=teams_to_tokens[team_id])
-            #
-            #bot_user_id = slack_web_client.auth_test().get('user_id')
-
             response = slack_web_client.chat_postMessage(
                 channel=channel_id,
                 text=whominated_text
